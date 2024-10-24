@@ -113,4 +113,17 @@ Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal not
 
 ### Tutorial 9
 
--
+- channels - a mechanism to communicate between goroutines
+  - they hold data
+  - they're thread safe = we avoid data race conditions when r/w from multiple goroutines
+  - we can listen for data addition and block execution until it happens
+- special syntax: <- to add data to the channel
+- simply using a channel on the main thread will block, but Go is smart and it throws a deadlock error; why it happens: writing to the channel blocks the thread execution until something reads from that channel
+- we can iterate over a channel with for-range loop; in this case we need the goroutine producing data to close the channel so that the consumer knows no more data is coming
+- _defer_ keyword: "do this right before the function exits"; stacking multiple defers will execute them in reverse order; so the last defer will be the first to execute; this is useful for closing resources, like files or channels
+- buffer channels - the producer process does not need to wait for the consumers to do their job, it should be able to exit quickly after sending the data; that's why we can have buffer channels, which store more pieces of data; so the producer can send data and fill it up (or not), and the consumer(s) can take data at their own leisure
+- select statement - like a switch statement, but for channels; we can listen to multiple channels at once; if multiple channels have data, Go will randomly choose one to read from; if none have data, it will block until one has data; if multiple have data, it will randomly choose one
+
+### Tutorial 10
+
+- generics
