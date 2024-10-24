@@ -103,4 +103,14 @@ Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal not
 
 ### Tutorial 8
 
+- goroutines - lightweight threads managed by the Go runtime; they're not OS threads, but they're multiplexed onto OS threads; so we can have thousands of goroutines running on a single OS thread; it's way more efficient this way; they're also called green threads from what I've found; Java implemented them kind of recently as well
+  - concurrency vs parallel execution - concurrency is about dealing with multiple things at once, while parallel execution is about executing multiple things at once; so concurrency can be parallel, but it doesn't have to be; Go is concurrent by design, so it's easy to write concurrent code; parallelism is achieved by running multiple goroutines on multiple OS threads
+- go keyword; this is like async from JS, we don't wait for the function to finish; it starts the goroutine; btw, I like the way we use the keyword, feels witty
+- we still need to wait for the goroutines to finish, so we have waitGroups for that;
+- and if we modify the same data from multiple goroutines, we need to handle data race conditions; so we use mutexes
+- since our program is limited by the delay simulation and not the actual result appending, we still get little overhead; but if we were to move the m.Lock() call above the delay (.Sleep()), then we would destroy our concurrency and get a linear execution time
+- we also have RWMutex available, with separate locks for reading and writing; (if a beginner reads this) as a Parallel programming primer, we don't need to lock each reader out since they don't modify the data; we can have multiple readers at the same time; but when a goroutine tries to write, it should lock the readers out; so we use RLock() for reading and Lock() for writing and Go handles the details; keep in mind that time taken to finish a task depends on the task; the constant time scaling of our simulated delay isn't available in real-world scenarios; the flatter the scaling, the better the parallelism of the task/algorithm
+
+### Tutorial 9
+
 -
