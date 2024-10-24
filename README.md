@@ -43,6 +43,7 @@ Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal not
 - arrays - fixed length, same type, indexable, contiguous in memory (so pretty efficient, but needs to be known at compile time); default value of elements based on default value of type
 - pointers / memory; & to get address of where the value is stored; it's getting pretty C-like in here
 - unusual, but doing &arr doesn't print the address of the array; so doing &arr[0] would be the first element's address and the array's address as well
+  - UPDATE (from tutorial7): this is because we printf %v which interprets as value; do %p for pointer and we get address
 - slices - wrappers around arrays (acc. to docs); so arrays with extra functionality
   - they're arrays with dynamic length; declared using [] instead of [n] (or letting the compiler infer the size with [...] and assigning values)
   - the capacity (cap) and length (len) vary, as the cap will double when we try to append to this slice and it's full; it reminds me of dynamic arrays in C++, when I had to create one as homework
@@ -85,3 +86,21 @@ Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal not
   - there is also a special empty interface (interface{} or "any" starting froom 1.18) used for generic type accepting
 
 ### Tutorial 7
+
+- pointers - a special kind of variable that holds the address of another variable; declared as \*type, where type is the type of the variable it points to
+  - a lot of what's being talked about here only matters for those who haven't worked extensively with C; some exercise is good anytime, though
+    - from what I understand in Go we don't have to worry about freeing memory, we just need to worry about pointer = nil at the end, so that we tell the garbage collector that it can free the memory
+    - to allocate memory we use new(type) or make(type, len, cap) for slices, maps, and channels; there are differences, however; make ensures initialization with non-zero values (that's what the internet says, though in my test I see 0-value initialization on slices)
+    - from what I gather, _new_ returns the pointer to the allocated memory, while _make_ returns the initialized object; so if we do _new_ on a slice, we get a pointer to a slice, while if we do _make_ on a slice, we get a slice
+    - dereferencing is done with \*, same as C; and accessing address is done with &
+    - we get runtime error if we try to dereference a nil pointer
+    - we now see that slices are actually by reference, so there's underlying pointers
+- passing static arrays to functions copies them (so it's pass by value)
+- passing slices to functions passes them by reference (so var slicey []type; slicey is actually a pointer to the actual slice data under the hood)
+- passing maps to functions passes them by references as well (so var mappy map[type]type; mappy is actually a pointer to the map under the hood)
+- we can work with pointers when passing big parameters to avoid copying huge chunks of data
+- what if we want to pass by reference, like in C++? This would mean we call functions without worrying about &, yet the function receives the address of that variable; in Go, this isn't possible; everything is passed by value (slices/maps are values which hold references under the hood, so they work like references but are still values)
+
+### Tutorial 8
+
+-
