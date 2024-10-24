@@ -61,3 +61,15 @@ Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal not
   - if I do var i = 15 outside the for, then do a for loop with i:=0;i<10;i++ it won't affect the i outside the loop
   - we also don't need "var" to declare
 - while loop - technically doesn't exist; but we can do a for loop with the condition and it's essentially a while
+
+### Tutorial 5
+
+- more on strings; using e with sharp accent from French as example
+- utf8 - variable length encoding; first few bits are used to encode how many bytes the character uses; original ASCII characters are 1 byte, but the rest can be 2, 3, or 4 bytes; this is a more efficient way of encoding characters, since having a fixed length would waste a lot of space
+- iterating upon a string with utf8 encoding gives the actual characters; indexing by traditional [index] method gives the bytes; so we can access a 3-byte character byte-by-byte, but it wouldn't be that helpful
+- we can cast the string to an array of runes; then we can access indexes and get the actual characters
+- string-building: if we use += to concatenate strings, it's inefficient; it creates a new string every time; so we should use strings.Builder instead; this creates an internal array where we append strings; at the end we call .String() to consolidate this array into a string
+
+### Tutorial 6
+
+-

@@ -66,8 +66,8 @@ func main() {
 		fmt.Println(i) // i is a local variable; doesn't affect the outside i
 	}
 	fmt.Printf("i is %d after loop\n", i)
-	for j := 0; j < 10; j++ {
-		fmt.Println(j)
-	}
+	// for j := 0; j < 10; j++ {
+	// 	fmt.Println(j) ; don't need to use var
+	// }
 
 }
