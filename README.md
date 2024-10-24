@@ -72,4 +72,16 @@ Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal not
 
 ### Tutorial 6
 
--
+- structs - user-defined types with multiple fields; default values are the original types' default values
+  - we can define & populate inline as well
+  - I wonder if Go structs have the same padding problem as C struct - according to an [answer on stacoverflow](https://stackoverflow.com/questions/73211746/does-go-use-something-like-space-padding-for-structs), it does; so sort structs from big to small fields to avoid wasting space; this depends on the system it's running on; if it's a 64-bit system (I assume deployment scenarios are 64-bit), then we have 8-byte word so anything below 8 bytes which changes data type is padded; so a struct with 4 int32 values will have 16 bytes, but if we have 3 int32 values and 1 int8, we would have (int32+int32 = 8 bytes) (int32 + int8 + padding = 5 + 3 = 8 bytes); in this situation we can't do much else, but 16 total bytes are better than 24 or anything else
+  - we also have methods = functions tied to structs
+- interfaces - Java-like, provides the ability to extract common function and generalize
+  - syntax is like struct, but we use interface; functions just use their signature
+  - (if a beginner reads this) interfaces tell us that anything that builds upon the interface needs to have the functions the interface defines implemented; like a struct for a Dog and a Cat adhere to an interface Animal, which has a function for sleep(); so both Dog and Cat need to have a sleep() function implementation
+  - this is OOP 101
+  - though from what I see in the syntax there is no explicit "implements" keyword; so it's a bit tougher to understand when a struct implements an interface, since we have to check the functions
+  - interfaces can also include other interfaces
+  - there is also a special empty interface (interface{} or "any" starting froom 1.18) used for generic type accepting
+
+### Tutorial 7
