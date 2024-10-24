@@ -2,6 +2,11 @@
 
 Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal notes
 
+- the notes are from the perspective of someone who has worked with C/C++ at a job and has a good understanding of Python/Java/C# as well from university courses
+- Go's syntax and features will be compared to these languages
+- some things I'll explain like I was talking to a beginner (it's a good way to practice deep understanding of a topic)
+- some will be new to me as well (Go-specific stuff)
+
 ## Notes
 
 ### Tutorial 1
@@ -126,4 +131,12 @@ Following video here: https://www.youtube.com/watch?v=8uiZC0l4Ajw + personal not
 
 ### Tutorial 10
 
-- generics
+- generics: anytime we want to apply the same kind of processing behaviour to a number of different types, we need a way to use generics; instead of writing 4 functions to add numbers in an array/slice, depending on their type (int/float/32-64 variants), we can use generics
+- syntax is TS-like, with type in angle brackets and we give it a name; so [T int | float32 | float64] will have T represent any of those 3 types; starting with Go 1.18, we can use "any" as a type to represent any type, though addition is only numerical so we'll keep at that
+- we can declare a type (generic) that encompasses multiple types, like in TS, but only to be used in generic functions; we cannot declare a variable of that type, since Go is strong-typed and it wants to resolve the type at compile time; the syntax to do this is an interface declaration
+  - see example in tutorial 10 which adds of 2 numbers
+- sidenote: if we're not interested in a value extracted from a function or in a for-range loop, use \_ to ignore it;
+- it makes sense to have an "any" generic when doing operations which are available on any type, like checking if a slice is empty;
+- we also have an example using a JSON file here; it's good to practice reading files as well; ioutil is deprecated, I used os instead; it seems that os.ReadFile also looks at the path where the command was executed (I'm executing this from the root of the project so I need to add the subfolders to the path)
+- json.Unmarshal() used to decode JSON data
+- the guy says he uses generics almost exclusively with functions; indeed, when doing microservice / API work, we mostly work with entities linked to the ORM & db and they're clearly defined; so it's more likely to use generics on functions, rather than define generic struct types to "inherit" from
